@@ -1,13 +1,13 @@
 import datetime
 import sys
+from typing import Literal
 from PyQt6.QtGui import *
-from PyQt6.QtCore import QTime
 from PyQt6.QtWidgets import *
 from PyQt6.QtWidgets import QWidget
 from task_scheduler import create_or_update_task, delete_task
 import geocoder
 import requests
-import pytz
+import darkdetect
 
 system_theme_args = 'add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' \
             ' /v SystemUsesLightTheme /t REG_DWORD /d {lightmode} /f'
@@ -106,11 +106,19 @@ class MainWindow(QMainWindow):
 
         self.dark_mode_time.setTime(sunset)
         self.light_mode_time.setTime(sunrise)
+    
+    def on_theme_change(self, theme: Literal['Light', 'Dark']):
+        if theme == 'Dark':
+            app.setStyle('Fusion')
+        elif theme == 'Light':
+            app.setStyle('Windows')
         
 
 app = QApplication(sys.argv)
 
 window = MainWindow()
+if darkdetect.isDark():
+    app.setStyle('Fusion')
 window.show()
 
 app.exec()

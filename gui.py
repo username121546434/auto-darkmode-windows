@@ -1,8 +1,8 @@
 import datetime
 import sys
 from typing import Literal
-from PyQt6.QtGui import *
-from PyQt6.QtWidgets import *
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QLabel, QTimeEdit, QPushButton, QApplication
 from PyQt6.QtWidgets import QWidget
 from task_scheduler import create_or_update_task, delete_task
 import geocoder
